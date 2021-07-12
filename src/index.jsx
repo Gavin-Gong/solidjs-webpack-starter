@@ -1,7 +1,7 @@
 import { createSignal, onCleanup } from "solid-js";
 import { render } from "solid-js/web";
 import "windi.css";
-import C from "./component.jsx";
+import C from "./components/component";
 
 const App = () => {
   const [count, setCount] = createSignal(0);

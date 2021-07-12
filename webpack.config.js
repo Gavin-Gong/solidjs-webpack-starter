@@ -1,5 +1,3 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -24,21 +22,15 @@ const config = {
       template: "index.html",
     }),
     new WindiCSS(),
-
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
   module: {
     rules: [
+      // TODO: HMR
       {
         test: /\.(js|jsx)$/i,
-        loader: "babel-loader",
+        use: ["solid-hot-loader", "babel-loader"],
+        include: path.resolve(__dirname, "src"),
       },
-      // TODO: HMR
-      // {
-      //   test: /\.jsx/,
-      //   use: ["solid-hot-loader"],
-      // },
       {
         test: /\.s[ac]ss$/i,
         use: [stylesHandler, "css-loader", "postcss-loader", "sass-loader"],
@@ -51,10 +43,10 @@ const config = {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: "asset",
       },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
+  },
+  resolve: {
+    extensions: [".js", ".jsx", ".css", ".scss"],
   },
   experiments: {
     asyncWebAssembly: true,
